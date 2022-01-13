@@ -6,8 +6,8 @@ A very simple python script to solve (bruteforce) wordle.
 
 ## Installation
 
-The only dependency is `enwords`;
-
+Pip install the dependencies;
 
     pip install enwords
+    pip install wordfreq
 

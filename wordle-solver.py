@@ -140,7 +140,7 @@ if args.lookup != "":
     print(args.lookup in enwords)
     exit()
 
-print("Hint: AUDIO is a good first guess - 4 vowels")
+print("Hint: ATONE is a good first guess - high frequency EN letters")
 printSeparator()
 
 while "_" in solved: 
