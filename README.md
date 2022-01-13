@@ -8,6 +8,6 @@ A very simple python script to solve (bruteforce) wordle.
 
 The only dependency is `enwords`;
 
-----
-pip install enwords
-----
+
+    pip install enwords
+
