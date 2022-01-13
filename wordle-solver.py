@@ -1,9 +1,16 @@
 #!/usr/bin/env python
 
+from wordfreq import word_frequency
 from english_words import english_words_lower_set as enwords
+import argparse
+
+parser = argparse.ArgumentParser()
+parser.add_argument("--length", type = int, default = 5)
+parser.add_argument("--lookup", type = str, default = "")
+args = parser.parse_args()
 
 badLetters = set() 
-lettersInWrongPlace = set()
+lettersInWrongPlace = dict()
 solved = "_____"
 
 def enterGuessResult(): 
@@ -13,9 +20,9 @@ def enterGuessResult():
 
     i = -1
 
-    print("HELP: Green letters: Uppercase")
-    print("HELP: Orange letters: Lowercase")
-    print("HELP: Gray letters: spacebar")
+    print("Green letters:\tUppercase")
+    print("Orange letters:\tLowercase")
+    print("Gray letters:\tspacebar")
     print("")
 
     for c in input("Guess result: "):
@@ -29,11 +36,16 @@ def enterGuessResult():
             continue
 
         if c.islower(): 
-            lettersInWrongPlace.add(c)
+            if c not in lettersInWrongPlace:
+                lettersInWrongPlace[c] = [i]
+            else:
+                lettersInWrongPlace[c].append(i)
+
 
 def enterUnusedLetters():
     for c in input("Enter unused: "):
         if c in solved.lower(): continue
+        if c in lettersInWrongPlace: continue
 
         badLetters.add(c)
 
@@ -55,6 +67,11 @@ def isCandidate(word):
             print(word, "does not container needed letter", c)
             return False
 
+        for i in lettersInWrongPlace[c]:
+            if word[i] == c:
+                print(word, "cannot have a", c, "at position", i)
+                return False
+
     for i in range(5): 
         solvedCharacter = solved[i]
         print(i, solvedCharacter, solved, word)
@@ -68,26 +85,66 @@ def isCandidate(word):
 
     return True
 
+def getCandidateRanking(entry):
+    word = entry['word']
+
+    uniqueChars = set(word)
+
+    newCharCount = 0
+
+    for c in uniqueChars:
+        if c not in solved.lower():
+            newCharCount = newCharCount + 1
+
+
+    entry['ranking'] = len(uniqueChars) + (newCharCount * len(uniqueChars)) * word_frequency(word, 'en')
+
+    return entry['ranking']
+
 def findCandidates():
     global enwords
 
-    candidates = set()
+    candidates = list()
 
     for word in enwords:
         if isCandidate(word):
-            candidates.add(word)
+            candidates.append({
+                "word": word,
+                "ranking": 0,
+            })
 
-    return candidates
+    return sorted(candidates, key=getCandidateRanking)
         
+def printTurnStatus():
+    global solved
+    global badLetters
+    global lettersInWrongPlace
 
-while "_" in solved: 
     print("")
     print("Turn status: ")
-    print("  Solved:", solved)
-    print("  badLetters:", badLetters)
-    print("  lettersInWrongPlace:", lettersInWrongPlace)
+    print("\tSolved:", solved)
+    print("\tbadLetters:", badLetters)
+    print("\tlettersInWrongPlace:", lettersInWrongPlace)
     print("")
-    print("Type in a guess, and enter the result!:")
+
+def printSeparator():
+    print("")
+    print("-------------")
+    print("")
+
+
+print("wordle-solver")
+print("")
+
+if args.lookup != "":
+    print(args.lookup in enwords)
+    exit()
+
+print("Hint: AUDIO is a good first guess - 4 vowels")
+printSeparator()
+
+while "_" in solved: 
+    print("Type in a guess, and enter the result!")
     print("")
 
     enterGuessResult()
@@ -95,22 +152,22 @@ while "_" in solved:
 
     candidates = findCandidates()
 
-    print("")
-    print("-------------")
-    print("")
-
+    printSeparator()
+    printTurnStatus()
+    printSeparator()
+ 
     if len(candidates) == 0:
         print("Cannot solve")
         break
 
     if len(candidates) == 1:
         print("Hopefully that is the answer!")
-        print("Answer =", next(iter(candidates)))
+        print("Answer =", next(iter(candidates))['word'])
         break
 
     else: 
         print ("Candidates....")
 
         for candidate in candidates:
-            print("-", candidate)
+            print("-", candidate['ranking'], candidate['word'])
 
