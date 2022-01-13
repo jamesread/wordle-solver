@@ -11,7 +11,7 @@ args = parser.parse_args()
 
 badLetters = set() 
 lettersInWrongPlace = dict()
-solved = "_____"
+solved = "_" * args.length
 
 def enterGuessResult(): 
     global solved
@@ -53,9 +53,9 @@ def isCandidate(word):
     global badLetters
     global solved
     global lettersInWrongPlace
+    global args
 
-
-    if len(word) != 5: return False
+    if len(word) != args.length: return False
 
     for bl in badLetters: 
         if bl in word: 
@@ -72,7 +72,7 @@ def isCandidate(word):
                 print(word, "cannot have a", c, "at position", i)
                 return False
 
-    for i in range(5): 
+    for i in range(args.length): 
         solvedCharacter = solved[i]
         print(i, solvedCharacter, solved, word)
 
