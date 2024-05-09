@@ -1,0 +1,94 @@
+body {
+  background-color: #dee3e7;
+  font-family: sans-serif;
+  text-align: center;
+  user-select: none;
+  padding: 0;
+  margin: 0;
+}
+
+div {
+  border-radius: 1em;
+  padding: 1em;
+  display: flex;
+  align-items: center;
+}
+
+div[data-state='active'] {
+  background-color: beige;
+}
+
+div[data-state='active'] span.letter {
+  cursor: pointer;
+}
+
+div[data-state='pending'] span.letter {
+  background-color: #efefef !important;
+  color: black;
+}
+
+
+div[data-state='pending'] span.letter {
+  cursor: not-allowed;
+}
+
+span.letter {
+  display: inline-block;
+  font-weight: bold;
+  font-size: 1.5em;
+  text-align: center;
+  align-content: center;
+  color: white;
+  border-radius: .2em;
+  margin-right: .2em;
+  width: 2em;
+  height: 2em;
+  border: 2px solid transparent;
+}
+
+span.letter.whitespace {
+  background-color: white;
+  color: black;
+}
+
+span.letter.next {
+  border: 2px solid black;
+}
+
+span.letter[data-type='error'] {
+  background-color: salmon;
+}
+
+span.letter[data-type='unused'] {
+  background-color: gray
+}
+
+span.letter[data-type='solved'] {
+  background-color: rgb(106, 170, 100);
+}
+
+span.letter[data-type='wrong-position'] {
+  background-color: rgb(201, 180, 88);
+}
+
+pre {
+ text-align: left;
+ background-color: #efefef;
+ margin: 1em;
+ flex-grow: 1;
+ border-radius: 1em;
+}
+
+main {
+  display: flex;
+  flex-direction: row;
+  margin: auto;
+}
+
+h1 {
+  padding: .2em;
+  margin: 0;
+  margin-top:  1em;
+  margin-bottom: 1em;
+  font-size: 1em;
+}
