@@ -27,5 +27,11 @@ jobs:
     - name: Build the Docker image
       run: docker build --file Dockerfile --tag ghcr.io/jamesread/wordle-solver:${{ env.VERSION }} .
 
-    - name: Docker push
+    - name: Docker push version
       run: docker push ghcr.io/jamesread/wordle-solver:${{ env.VERSION}}
+
+    - name: Docker tag latest
+      run: docker tag ghcr.io/jamesread/wordle-solver:${{ env.VERSION}} ghcr.io/jamesread/wordle-solver:latest
+
+    - name: Docker push latest
+      run: docker push ghcr.io/jamesread/wordle-solver:latest
