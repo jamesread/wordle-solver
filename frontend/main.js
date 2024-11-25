@@ -4,11 +4,6 @@ function createLetters (index) {
   const holder = document.createElement('div')
   holder.setAttribute('data-index', index)
 
-  const lbl = document.createElement('span')
-  lbl.classList.add('label')
-  lbl.innerText = (index + 1) + ': '
-  holder.appendChild(lbl)
-
   for (let i = 0; i < window.settings.countLetters; i++) {
     const l = document.createElement('input')
     l.classList.add('letter')

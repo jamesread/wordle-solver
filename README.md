@@ -16,7 +16,9 @@ This app has a solve rate within the very high 90% - probably 98%, and most of t
 
 ## Installation (docker container)
 
-	docker create --name wordle-solver -p 8080:8080 ghcr.io/jamesread/wordle-solver
+This is by far the easiest way to run the app, simply run the container like this;
+
+	docker run --name wordle-solver -p 8080:8080 ghcr.io/jamesread/wordle-solver
 
 ## Installation (local)
 
@@ -25,6 +27,6 @@ Pip install the dependencies;
     pip install enwords
     pip install wordfreq
 
-## Run
+### Run
 
     ./wordle-solver.py
