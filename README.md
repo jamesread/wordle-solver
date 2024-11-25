@@ -1,6 +1,8 @@
 # wordle-solver
 
-A very web app to solve (bruteforce) wordle. 
+A very simple web app to solve wordle - it suggests a ranking of the best possible next guesses that statistically is most likely to win the game in as few moves as possible.
+
+The ranking of words is determined by an algorithm that is mostly just using constraint-based filtering of the English dictionary, based on the results of guesses, coupled with the frequency statistics of probable words.
 
 ![screenshot](screenshot.png)
 
