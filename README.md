@@ -1,6 +1,6 @@
 # wordle-solver
 
-A very simple python script to solve (bruteforce) wordle. 
+A very web app to solve (bruteforce) wordle. 
 
 ![screenshot](screenshot.png)
 
