@@ -9,7 +9,7 @@ body {
 
 div {
   border-radius: 1em;
-  padding: 1em;
+  padding: .25em;
   display: flex;
   align-items: center;
 }
@@ -18,21 +18,17 @@ div[data-state='active'] {
   background-color: beige;
 }
 
-div[data-state='active'] span.letter {
+div[data-state='active'] .letter {
   cursor: pointer;
 }
 
-div[data-state='pending'] span.letter {
-  background-color: #efefef !important;
+div[data-state='pending'] .letter {
+  background-color: #fbfcff;
+  cursor: not-allowed;
   color: black;
 }
 
-
-div[data-state='pending'] span.letter {
-  cursor: not-allowed;
-}
-
-span.letter {
+.letter {
   display: inline-block;
   font-weight: bold;
   font-size: 1.5em;
@@ -43,32 +39,33 @@ span.letter {
   margin-right: .2em;
   width: 2em;
   height: 2em;
-  border: 2px solid transparent;
+  border: 2px solid #dee1e9;
 }
 
-span.letter.whitespace {
+.letter.whitespace {
   background-color: white;
   color: black;
 }
 
-span.letter.next {
+.letter.next {
   border: 2px solid black;
 }
 
-span.letter[data-type='error'] {
+.letter[data-type='error'] {
   background-color: salmon;
 }
 
-span.letter[data-type='unused'] {
-  background-color: gray
+.letter[data-type='unused'] {
+  background-color: #a4aec4;
+  color: white;
 }
 
-span.letter[data-type='solved'] {
+.letter[data-type='solved'] {
   background-color: rgb(106, 170, 100);
 }
 
-span.letter[data-type='wrong-position'] {
-  background-color: rgb(201, 180, 88);
+.letter[data-type='wrong-position'] {
+  background-color: #f3c237;
 }
 
 pre {
@@ -85,10 +82,20 @@ main {
   margin: auto;
 }
 
+@media (max-width: 480px) {
+  main {
+    flex-direction: column;
+  }
+}
+
 h1 {
   padding: .2em;
   margin: 0;
   margin-top:  1em;
   margin-bottom: 1em;
   font-size: 1em;
+}
+
+#letters {
+  background-color: white;
 }

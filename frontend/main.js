@@ -10,8 +10,9 @@ function createLetters (index) {
   holder.appendChild(lbl)
 
   for (let i = 0; i < window.settings.countLetters; i++) {
-    const l = document.createElement('span')
+    const l = document.createElement('input')
     l.classList.add('letter')
+    l.addEventListener('keydown', oninput)
     l.innerText = ' '
     l.setAttribute('data-type', 'unused')
     l.onclick = () => {
@@ -53,7 +54,7 @@ function cycleLetterType (input) {
 }
 
 function oninput (e) {
-  const input = window.letters[window.currentResultFocus][window.currentInputFocus]
+  const input = e.target
 
   if (e.key === 'Enter') {
     onInputReq()
@@ -63,6 +64,7 @@ function oninput (e) {
   if (e.key === 'ArrowLeft') {
     if (window.currentInputFocus > 0) {
       window.currentInputFocus--
+      window.letters[window.currentResultFocus][window.currentInputFocus].focus()
       refreshLetterCss()
       return
     }
@@ -71,6 +73,7 @@ function oninput (e) {
   if (e.key === 'ArrowRight') {
     if (window.currentInputFocus + 1 !== window.settings.countLetters) {
       window.currentInputFocus++
+      window.letters[window.currentResultFocus][window.currentInputFocus].focus()
       refreshLetterCss()
       return
     }
@@ -88,9 +91,14 @@ function oninput (e) {
     return
   }
 
-  input.innerText = e.key.toUpperCase()
+  input.value = e.key.toUpperCase()
+  e.preventDefault()
 
-  window.currentInputFocus++
+  if (window.currentInputFocus + 1 !== window.settings.countLetters) {
+    window.currentInputFocus++
+    const i = window.letters[window.currentResultFocus][window.currentInputFocus]
+    i.focus()
+  }
 
   refreshLetterCss()
 }
@@ -98,18 +106,17 @@ function oninput (e) {
 function buildResult () {
   const ret = []
 
-  let i = 0;
+  let i = 0
 
   for (const l of window.letters[window.currentResultFocus]) {
     const type = l.getAttribute('data-type')
 
     if (type === 'solved') {
-      window.known[i] = l.innerText
+      window.known[i] = l.value
     }
 
-
     ret.push({
-      character: l.innerText,
+      character: l.value,
       type: type
     })
 
@@ -146,6 +153,8 @@ function onInputReq () {
     window.currentResultFocus++
 
     prefillKnown()
+
+    window.letters[window.currentResultFocus][window.currentInputFocus].focus()
 
     refreshLetterCss()
   }).catch(e => {
@@ -191,24 +200,20 @@ function refreshLetterCss () {
 
       if (resultRow === window.currentResultFocus) {
         input.classList.add('active-result')
+        input.disabled = false
       } else {
         input.classList.remove('active-result')
+        input.disabled = true
       }
     }
   }
-
-  if (window.currentInputFocus >= window.settings.countLetters) {
-    return
-  }
-
-  window.letters[window.currentResultFocus][window.currentInputFocus].classList.add('next')
 }
 
 function prefillKnown () {
   for (const pos of Object.keys(window.known)) {
     const l = window.letters[window.currentResultFocus][pos]
 
-    l.innerText = window.known[pos]
+    l.value = window.known[pos]
     l.setAttribute('data-type', 'solved')
   }
 }
@@ -242,7 +247,7 @@ function main () {
 
   reqReset()
 
-  document.body.addEventListener('keyup', oninput)
+  document.querySelectorAll('input')[0].focus()
 
   refreshLetterCss()
 }
