@@ -1,4 +1,11 @@
-# wordle-solver
+<div align = "center">
+	<h1>wordle-solver</h1>
+	<p>Crush wordle with just filtering logic.</p>
+
+[![Maturity](https://img.shields.io/badge/maturity-Production-green)](#none)
+[![Build Tag](https://github.com/jamesread/Sicroc/actions/workflows/build-tag.yml/badge.svg)](https://github.com/jamesread/Sicroc/actions/workflows/build-tag.yml)
+[![Discord](https://img.shields.io/discord/846737624960860180?label=Discord%20Server)](https://discord.gg/jhYWWpNJ3v)
+</div>
 
 A very simple web app to solve wordle - it suggests a ranking of the best possible next guesses that statistically is most likely to win the game in as few moves as possible.
 
