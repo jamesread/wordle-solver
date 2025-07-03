@@ -2,7 +2,7 @@
 	<h1>wordle-solver</h1>
 	<p>Crush wordle with just filtering logic.</p>
 
-[![Maturity](https://img.shields.io/badge/maturity-Production-green)](#none)
+[![Maturity](https://img.shields.io/badge/maturity-Production-brightgreen)](#none)
 [![Build Tag](https://github.com/jamesread/Sicroc/actions/workflows/build-tag.yml/badge.svg)](https://github.com/jamesread/Sicroc/actions/workflows/build-tag.yml)
 [![Discord](https://img.shields.io/discord/846737624960860180?label=Discord%20Server)](https://discord.gg/jhYWWpNJ3v)
 </div>
